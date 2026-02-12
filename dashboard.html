@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Archives - KULAC S.A.S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+            <img src="logo-kulac.png" alt="Logo KULAC" class="h-12 w-auto object-contain">
+            <span class="text-xl font-bold text-gray-800 tracking-tight border-l-2 border-gray-200 pl-4 uppercase">
+                KULAC S.A.S Archivage
+            </span>
+        </div>
+            
+            <div class="flex-1 max-w-2xl mx-10">
+                <div class="relative">
+                    <i class="fa fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                    <input type="text" id="searchInput" placeholder="Rechercher un document par nom ou catégorie..." 
+                        class="w-full pl-12 pr-4 py-3 bg-gray-100 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+            </div>
+
+            <button onclick="toggleModal(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition shadow-md">
+                <i class="fa fa-plus-circle"></i> Ajouter un fichier
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-10">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800">Archives</h2>
+                <p class="text-gray-500">Liste des derniers documents téléversés</p>
+            </div>
+            <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold shadow-sm border border-blue-100">
+                <i class="fa fa-database mr-2"></i> Espace utilisé : Chargement...
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 border-b border-gray-100">
+                    <tr>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Document</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Catégorie</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Date d'archive</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="fileList" class="divide-y divide-gray-50">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="uploadModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800 italic">Archiver un nouveau document</h3>
+                <button onclick="toggleModal(false)" class="text-gray-400 hover:text-gray-600"><i class="fa fa-times text-xl"></i></button>
+            </div>
+            
+            <form id="uploadForm" class="p-8 space-y-5">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Nom du document</label>
+                        <input type="text" id="docName" required class="w-full border-gray-200 border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Catégorie</label>
+                        <select id="docCat" class="w-full border-gray-200 border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Acte de Vente</option>
+                            <option>Declaration</option>
+                            <option>Décharge</option>
+                            <option>Facture</option>
+                            <option>Contrat</option>
+                            <option>Engagement</option>
+                            <option>Doc Administratif</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Date du document</label>
+                        <input type="date" id="docDate" required class="w-full border-gray-200 border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <div class="border-2 border-dashed border-blue-200 bg-blue-50 rounded-2xl p-10 text-center relative hover:bg-blue-100 transition">
+                    <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer">
+                    <i class="fa fa-cloud-arrow-up text-blue-400 text-4xl mb-3"></i>
+                    <p class="text-blue-800 font-medium">Glissez un fichier ou cliquez ici</p>
+                    <p class="text-xs text-blue-500 mt-1">PDF, Excel, Images (Max 50 Mo)</p>
+                </div>
+
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="toggleModal(false)" class="flex-1 px-6 py-3 border border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition">Annuler</button>
+                    <button type="submit" class="bg-blue-600 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">Sauvegarder l'archive</button>
+                </div>
+            </form>
+        </div>
+    </div>  
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script async defer src="https://accounts.google.com/gsi/client"></script>
+
+    <script src="script.js"></script>
+    <div id="previewModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl w-full max-w-5xl h-5/6 flex flex-col shadow-2xl">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
+                <h3 id="previewTitle" class="font-bold text-gray-700 truncate">Prévisualisation</h3>
+                <button onclick="closePreview()" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+            </div>
+            <div class="flex-grow">
+                <iframe id="previewFrame" src="" class="w-full h-full border-none"></iframe>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
