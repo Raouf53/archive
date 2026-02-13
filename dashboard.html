@@ -28,7 +28,7 @@
             </div>
 
             <button onclick="toggleModal(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition shadow-md">
-                <i class="fa fa-plus-circle"></i> Ajouter un fichier
+                <i class="fa fa-plus-circle"></i> Dosya Ekle/Ajouter un fichier
             </button>
         </div>
     </nav>
@@ -37,7 +37,7 @@
         <div class="flex justify-between items-end mb-8">
             <div>
                 <h2 class="text-3xl font-bold text-gray-800">Archives</h2>
-                <p class="text-gray-500">Liste des derniers documents téléversés</p>
+                <p class="text-gray-500">Yüklenen Belgeler/Documents téléversés</p>
             </div>
             <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold shadow-sm border border-blue-100">
                 <i class="fa fa-database mr-2"></i> Espace utilisé : Chargement...
@@ -47,10 +47,10 @@
             <table class="w-full text-left">
                 <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
-                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Nom du document</th>
-                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Catégorie</th>
-                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Date d'archive</th>
-                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase text-right">Actions</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Belge Adı/Nom du document</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Kategori/Catégorie</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase">Date d'archivage</th>
+                        <th class="p-5 text-sm font-semibold text-gray-600 uppercase text-right">İşlemler/Actions</th>
                     </tr>
                 </thead>
                 <tbody id="fileList" class="divide-y divide-gray-50">
@@ -69,21 +69,21 @@
             <form id="uploadForm" class="p-8 space-y-5">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Nom du document</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Belge Adı/Nom du document</label>
                         <input type="text" id="docName" required class="w-full border-gray-200 border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Catégorie</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Kategori/Catégorie</label>
                         <select id="docCat" class="w-full border-gray-200 border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>Acte de Vente</option>
-                            <option>Declaration</option>
-                            <option>Décharge</option>
-                            <option>Facture</option>
-                            <option>Contrat</option>
-                            <option>Engagement</option>
-                            <option>KULAC Impot</option>
-                            <option>KULAC BAIL</option>
-                            <option>Doc Administratif</option>
+                            <option>Acte de Vente/Satış Sözleşmesi</option>
+                            <option>Declaration/Beyanname</option>
+                            <option>Décharge/İbra Belgesi</option>
+                            <option>Facture/Fatura</option>
+                            <option>Contrat/Sözleşme</option>
+                            <option>Engagement/Taahhütname</option>
+                            <option>KULAC Impot/Vergi Belgesi</option>
+                            <option>KULAC BAIL/Kira Sözleşmesi</option>
+                            <option>Doc Administratif/Resmi Belgeler</option>
                         </select>
                     </div>
                     <div>
@@ -96,12 +96,13 @@
                     <input type="file" id="fileInput" accept=".pdf, .jpg, .jpeg, .png, .xlsx, .xls" class="absolute inset-0 opacity-0 cursor-pointer">
                     <i class="fa fa-cloud-arrow-up text-blue-400 text-4xl mb-3"></i>
                     <p class="text-blue-800 font-medium">Glissez un fichier ou cliquez ici</p>
+                    <p class="text-blue-800 font-medium">Dosyayı buraya sürükleyin veya seçmek için tıklayın</p>
                     <p class="text-xs text-blue-500 mt-1">PDF, Excel, Images (Max 50 Mo)</p>
                 </div>
 
                 <div class="flex gap-3 pt-4">
                     <button type="button" onclick="toggleModal(false)" class="flex-1 px-6 py-3 border border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition">Annuler</button>
-                    <button type="submit" class="bg-blue-600 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">Sauvegarder l'archive</button>
+                    <button type="submit" class="bg-blue-600 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">Sauvegarder/Arşivle</button>
                 </div>
             </form>
         </div>
@@ -124,6 +125,7 @@
 </body>
 
 </html>
+
 
 
 
