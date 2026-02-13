@@ -166,8 +166,16 @@ async function uploadToDrive() {
         });
         
         if (res.ok) {
+            // 1. On vide les champs du formulaire
+            document.getElementById('fileInput').value = "";
+            document.getElementById('docName').value = "";
+            document.getElementById('docCat').value = "Général"; // ou votre valeur par défaut
+
+            // 2. On ferme la fenêtre modale
             toggleModal(false);
-            listFiles(); // Rafraîchir immédiatement la liste
+
+            // 3. On rafraîchit la liste des documents
+            listFiles(); 
         }
     } catch (err) { console.error("Erreur upload:", err); }
 }
@@ -273,4 +281,5 @@ function closePreview() {
     const frame = document.getElementById('previewFrame');
     modal.classList.add('hidden');
     frame.src = ""; // On vide l'iframe pour stopper le chargement
+
 }
