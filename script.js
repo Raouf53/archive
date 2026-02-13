@@ -113,7 +113,16 @@ async function listFiles() {
                             </div>
                             <span class="font-medium text-gray-700">${file.name}</span>
                         </td>
-                        <td class="p-5"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold uppercase">${file.description || 'Général'}</span></td>
+                        <td class="p-5">
+                            <div class="flex flex-col">
+                                <span class="w-fit px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold uppercase mb-1">
+                                    ${file.description ? file.description.split(' | ')[0] : 'Général'}
+                                </span>
+                                <span class="text-xs text-gray-400 italic">
+                                    Doc du : ${file.description && file.description.includes(' | ') ? file.description.split(' | ')[1] : 'Non spécifiée'}
+                                </span>
+                            </div>
+                        </td>
                         <td class="p-5 text-gray-500 text-sm">${date}</td>
                         <td class="p-5 text-right space-x-2">
                             <button onclick="openPreview('${file.id}', '${file.name.replace(/'/g, "\\'")}')" class="text-green-600 hover:bg-green-100 p-2 rounded-lg transition" title="Aperçu">
@@ -148,10 +157,15 @@ async function uploadToDrive() {
     if (!fileInput.files[0]) return alert("Sélectionnez un fichier !");
     
     const file = fileInput.files[0];
+    // On récupère la date saisie dans le formulaire
+    const documentDate = document.getElementById('docDate').value; 
+    const category = document.getElementById('docCat').value;
+    
     const metadata = {
         name: document.getElementById('docName').value || file.name,
         mimeType: file.type,
-        description: document.getElementById('docCat').value
+        // On stocke la catégorie ET la date du document séparées par un pipe |
+        description: category + " | " + documentDate 
     };
 
     const form = new FormData();
@@ -169,6 +183,7 @@ async function uploadToDrive() {
             // 1. On vide les champs du formulaire
             document.getElementById('fileInput').value = "";
             document.getElementById('docName').value = "";
+            document.getElementById('docDate').value = "";
             document.getElementById('docCat').value = "Général"; // ou votre valeur par défaut
 
             // 2. On ferme la fenêtre modale
@@ -283,3 +298,4 @@ function closePreview() {
     frame.src = ""; // On vide l'iframe pour stopper le chargement
 
 }
+
