@@ -64,9 +64,13 @@ window.onload = () => {
     if (typeof gapi !== 'undefined') gapiLoaded();
     if (typeof google !== 'undefined') gisLoaded();
     
-    // On ne lance rien automatiquement, on attend que l'utilisateur clique sur le tableau
-    const listContainer = document.getElementById('fileList');
-    listContainer.innerHTML = '<tr><td colspan="4" class="p-10 text-center"><button onclick="tokenClient.requestAccessToken()" class="bg-blue-600 text-white px-4 py-2 rounded">Charger les documents</button></td></tr>';
+    // On attend un court instant que les scripts Google soient prêts
+    setTimeout(() => {
+        if (tokenClient) {
+            // Tente de récupérer le jeton automatiquement sans forcer le pop-up
+            tokenClient.requestAccessToken({ prompt: 'none' });
+        }
+    }, 1000);
 };
     
     // Initialisation de la barre de recherche
@@ -298,4 +302,5 @@ function closePreview() {
     frame.src = ""; // On vide l'iframe pour stopper le chargement
 
 }
+
 
